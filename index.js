@@ -34,11 +34,12 @@ plug.set('app', ['loginAction'], function (loginAction, next) {
     var express = require('express');
     var app = express();
     app.get('/', loginAction);
-    app.listen(3000, function (err) {
-        next(app);
-    })
+    next(app);
 })
 
 plug.get(['app', 'serverPort'], function (app, serverPort) {
-    console.log('Server listening on port:' + serverPort);
+    app.listen(serverPort, function (err) {
+        if (err) throw err;
+        console.log('Server listening on port:' + serverPort);
+    })
 })
